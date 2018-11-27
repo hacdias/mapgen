@@ -25,16 +25,16 @@ func lerp(v0, v1, t float64) float64 {
 }
 
 func main() {
-	width := 3840
+	width := 3640
 	height := 2160
 	octaves := 5
-	scale := 1080.0
-	persistance := 0.5
-	lacunarity := 2.6
+	scale := 500.0
+	persistance := 0.5 // between 1 and 0
+	lacunarity := 2.5
 
 	img := image.NewRGBA(image.Rect(0, 0, width, height))
 
-	p := noise.NewNormalized(16)
+	p := noise.NewNormalized(1234)
 
 	elev := makeMap(width, height)
 
@@ -57,16 +57,15 @@ func main() {
 				frequency *= lacunarity
 			}
 
-			elev[y][x] = noise
 			max = math.Max(noise, max)
 			min = math.Min(noise, min)
+			elev[y][x] = noise
 		}
 	}
 
 	for y := range elev {
 		for x := range elev[y] {
 			noise := lerp(min, max, elev[y][x])
-
 			color, _ := biome(noise)
 			img.Set(x, y, color)
 		}
@@ -78,5 +77,4 @@ func main() {
 	}
 	defer f.Close()
 	png.Encode(f, img)
-
 }

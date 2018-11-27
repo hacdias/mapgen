@@ -8,7 +8,7 @@ import (
 
 func biome(e float64) (color.Color, error) {
 	if e < 0.3 {
-		return colorful.Hex("#3463c2")
+		return colorful.Hex("#2c52a0")
 	} else if e < 0.4 {
 		return colorful.Hex("#3766c8")
 	} else if e < 0.45 {
