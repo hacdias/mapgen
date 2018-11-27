@@ -6,7 +6,7 @@ import (
 	"os"
 
 	"github.com/hacdias/mapgen"
-	flag "github.com/spf13/pflag"
+	"github.com/spf13/pflag"
 )
 
 var (
@@ -21,18 +21,18 @@ var (
 )
 
 func init() {
-	flag.IntVarP(&width, "width", "w", 100, "Width of image")
-	flag.IntVarP(&height, "height", "h", 100, "Height of image")
-	flag.IntVarP(&octaves, "octaves", "o", 5, "Number of octaves")
-	flag.Int64VarP(&seed, "seed", "s", 0, "Seed to generate the map (default random)") //TODO: check if user defined
-	flag.Float64VarP(&scale, "scale", "x", 20.0, "Scale")
-	flag.Float64VarP(&persistance, "persistance", "p", 0.5, "Persistance")
-	flag.Float64VarP(&lacunarity, "lacunarity", "l", 2.5, "Lacunarity")
-	flag.StringVarP(&filename, "filename", "f", "img.png", "File name to output")
+	pflag.IntVarP(&width, "width", "w", 100, "Width of image")
+	pflag.IntVarP(&height, "height", "h", 100, "Height of image")
+	pflag.IntVarP(&octaves, "octaves", "o", 5, "Number of octaves")
+	pflag.Int64VarP(&seed, "seed", "s", 0, "Seed to generate the map (default random)") //TODO: check if user defined
+	pflag.Float64VarP(&scale, "scale", "x", 20.0, "Scale")
+	pflag.Float64VarP(&persistance, "persistance", "p", 0.5, "Persistance")
+	pflag.Float64VarP(&lacunarity, "lacunarity", "l", 2.5, "Lacunarity")
+	pflag.StringVarP(&filename, "filename", "f", "img.png", "File name to output")
 }
 
 func main() {
-	flag.Parse()
+	pflag.Parse()
 
 	if persistance < 0 || persistance > 1 {
 		fmt.Println("Persistance must be between 0 and 1")
