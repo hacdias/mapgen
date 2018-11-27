@@ -1,13 +1,21 @@
-package main
+package mapgen
 
 import (
 	"image"
-	"image/png"
 	"math"
-	"os"
 
 	noise "github.com/ojrac/opensimplex-go"
 )
+
+type Options struct {
+	Width       int
+	Height      int
+	Octaves     int
+	Seed        int64
+	Scale       float64
+	Persistante float64
+	Lacunarity  float64
+}
 
 func makeMap(width, height int) [][]float64 {
 	slice := make([][]float64, height)
@@ -24,37 +32,27 @@ func lerp(v0, v1, t float64) float64 {
 	return t / v1
 }
 
-func main() {
-	width := 3640
-	height := 2160
-	octaves := 5
-	scale := 500.0
-	persistance := 0.5 // between 1 and 0
-	lacunarity := 2.5
-
-	img := image.NewRGBA(image.Rect(0, 0, width, height))
-
-	p := noise.NewNormalized(1234)
-
-	elev := makeMap(width, height)
+func Generate(o *Options) image.Image {
+	img := image.NewRGBA(image.Rect(0, 0, o.Width, o.Height))
+	p := noise.NewNormalized(o.Seed)
+	elev := makeMap(o.Width, o.Height)
 
 	min := math.MaxFloat64
 	max := -min
 
 	for y := range elev {
-		elev[y] = make([]float64, width)
 		for x := range elev[y] {
 			amplitude := 1.0
 			frequency := 1.0
 			noise := 0.0
 
-			for i := 0; i < octaves; i++ {
-				sX := float64(x) / scale * frequency
-				sY := float64(y) / scale * frequency
+			for i := 0; i < o.Octaves; i++ {
+				sX := float64(x) / o.Scale * frequency
+				sY := float64(y) / o.Scale * frequency
 				noise += p.Eval2(sX, sY) * amplitude
 
-				amplitude *= persistance
-				frequency *= lacunarity
+				amplitude *= o.Persistante
+				frequency *= o.Lacunarity
 			}
 
 			max = math.Max(noise, max)
@@ -71,10 +69,5 @@ func main() {
 		}
 	}
 
-	f, err := os.Create("img.png")
-	if err != nil {
-		panic(err)
-	}
-	defer f.Close()
-	png.Encode(f, img)
+	return img
 }
