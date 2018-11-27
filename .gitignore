@@ -1,4 +1,6 @@
 *.png
 *.jpg
 *.gif
+*.tiff
+*.bmp
 *.exe

@@ -12,6 +12,8 @@ import (
 
 	"github.com/hacdias/mapgen"
 	"github.com/spf13/pflag"
+	"golang.org/x/image/bmp"
+	"golang.org/x/image/tiff"
 )
 
 var (
@@ -88,13 +90,21 @@ func main() {
 	defer f.Close()
 
 	if strings.HasSuffix(filename, ".png") {
-		png.Encode(f, img)
+		err = png.Encode(f, img)
 	} else if strings.HasSuffix(filename, ".gif") {
-		gif.Encode(f, img, nil)
+		err = gif.Encode(f, img, nil)
 	} else if strings.HasSuffix(filename, ".jpg") || strings.HasSuffix(filename, ".jpeg") {
-		jpeg.Encode(f, img, nil)
+		err = jpeg.Encode(f, img, nil)
+	} else if strings.HasSuffix(filename, ".bmp") {
+		err = bmp.Encode(f, img)
+	} else if strings.HasSuffix(filename, ".tiff") {
+		err = tiff.Encode(f, img, nil)
 	} else {
 		fmt.Println("No support for the defined format. The file was saved as a PNG.")
-		png.Encode(f, img)
+		err = png.Encode(f, img)
+	}
+
+	if err != nil {
+		panic(err)
 	}
 }
