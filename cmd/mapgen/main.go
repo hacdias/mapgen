@@ -1,11 +1,14 @@
 package main
 
 import (
-	"os"
 	"fmt"
+	"image/gif"
+	"image/jpeg"
 	"image/png"
-	"time"
 	"math/rand"
+	"os"
+	"strings"
+	"time"
 
 	"github.com/hacdias/mapgen"
 	"github.com/spf13/pflag"
@@ -33,10 +36,10 @@ func init() {
 	pflag.StringVarP(&filename, "filename", "f", "img.png", "File name to output")
 }
 
-func seedDefined () bool {
+func seedDefined() bool {
 	v := false
 
-	pflag.Visit(func (f *pflag.Flag) {
+	pflag.Visit(func(f *pflag.Flag) {
 		if f.Name == "seed" {
 			v = true
 		}
@@ -83,5 +86,15 @@ func main() {
 	}
 
 	defer f.Close()
-	png.Encode(f, img)
+
+	if strings.HasSuffix(filename, ".png") {
+		png.Encode(f, img)
+	} else if strings.HasSuffix(filename, ".gif") {
+		gif.Encode(f, img, nil)
+	} else if strings.HasSuffix(filename, ".jpg") || strings.HasSuffix(filename, ".jpeg") {
+		jpeg.Encode(f, img, nil)
+	} else {
+		fmt.Println("No support for the defined format. The file was saved as a PNG.")
+		png.Encode(f, img)
+	}
 }
