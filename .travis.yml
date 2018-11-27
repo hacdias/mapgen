@@ -1,0 +1,18 @@
+language: go
+
+matrix:
+  include:
+    - go: 1.11.2
+    - go: tip
+  allow_failures:
+    - go: tip
+
+env:
+  - GO111MODULE=on
+
+install:
+  - curl -L https://git.io/vp6lP | sh
+  - export PATH=$PATH:$(pwd)/bin
+
+script:
+  - gometalinter ./..
