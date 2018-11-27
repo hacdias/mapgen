@@ -15,7 +15,7 @@ var (
 	octaves     int
 	seed        int64
 	scale       float64
-	persistance float64
+	persistence float64
 	lacunarity  float64
 	filename    string
 )
@@ -26,7 +26,7 @@ func init() {
 	pflag.IntVarP(&octaves, "octaves", "o", 5, "Number of octaves")
 	pflag.Int64VarP(&seed, "seed", "s", 0, "Seed to generate the map (default random)") //TODO: check if user defined
 	pflag.Float64VarP(&scale, "scale", "x", 20.0, "Scale")
-	pflag.Float64VarP(&persistance, "persistance", "p", 0.5, "Persistance")
+	pflag.Float64VarP(&persistence, "persistence", "p", 0.5, "persistence")
 	pflag.Float64VarP(&lacunarity, "lacunarity", "l", 2.5, "Lacunarity")
 	pflag.StringVarP(&filename, "filename", "f", "img.png", "File name to output")
 }
@@ -34,8 +34,8 @@ func init() {
 func main() {
 	pflag.Parse()
 
-	if persistance < 0 || persistance > 1 {
-		fmt.Println("Persistance must be between 0 and 1")
+	if persistence < 0 || persistence > 1 {
+		fmt.Println("persistence must be between 0 and 1")
 		os.Exit(1)
 	}
 
@@ -45,7 +45,7 @@ func main() {
 		Octaves:     octaves,
 		Seed:        seed,
 		Scale:       scale,
-		Persistante: persistance,
+		Persistence: persistence,
 		Lacunarity:  lacunarity,
 	}
 

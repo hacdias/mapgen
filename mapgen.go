@@ -13,7 +13,7 @@ type Options struct {
 	Octaves     int
 	Seed        int64
 	Scale       float64
-	Persistante float64
+	Persistence float64
 	Lacunarity  float64
 }
 
@@ -51,7 +51,7 @@ func Generate(o *Options) image.Image {
 				sY := float64(y) / o.Scale * frequency
 				noise += p.Eval2(sX, sY) * amplitude
 
-				amplitude *= o.Persistante
+				amplitude *= o.Persistence
 				frequency *= o.Lacunarity
 			}
 
