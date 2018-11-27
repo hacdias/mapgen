@@ -2,6 +2,8 @@
 
 > Create beautiful and pseudo-random terrain-like maps.
 
+![img](https://user-images.githubusercontent.com/5447088/49112619-27fbf600-f28b-11e8-82e6-78198e65929a.png)
+
 [![Build](https://img.shields.io/travis/com/hacdias/mapgen.svg?style=flat-square)](https://travis-ci.com/hacdias/mapgen)
 [![Go Report Card](https://goreportcard.com/badge/github.com/hacdias/mapgen?style=flat-square)](https://goreportcard.com/report/hacdias/mapgen)
 [![Documentation](https://img.shields.io/badge/godoc-reference-blue.svg?style=flat-square)](http://godoc.org/github.com/hacdias/mapgen)
