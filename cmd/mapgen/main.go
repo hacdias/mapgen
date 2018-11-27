@@ -1,9 +1,11 @@
 package main
 
 import (
+	"os"
 	"fmt"
 	"image/png"
-	"os"
+	"time"
+	"math/rand"
 
 	"github.com/hacdias/mapgen"
 	"github.com/spf13/pflag"
@@ -31,12 +33,30 @@ func init() {
 	pflag.StringVarP(&filename, "filename", "f", "img.png", "File name to output")
 }
 
+func seedDefined () bool {
+	v := false
+
+	pflag.Visit(func (f *pflag.Flag) {
+		if f.Name == "seed" {
+			v = true
+		}
+	})
+
+	return v
+}
+
 func main() {
 	pflag.Parse()
 
 	if persistence < 0 || persistence > 1 {
 		fmt.Println("persistence must be between 0 and 1")
 		os.Exit(1)
+	}
+
+	if !seedDefined() {
+		s1 := rand.NewSource(time.Now().UnixNano())
+		r1 := rand.New(s1)
+		seed = int64(r1.Intn(100))
 	}
 
 	options := &mapgen.Options{
