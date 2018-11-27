@@ -49,12 +49,19 @@ func main() {
 		Lacunarity:  lacunarity,
 	}
 
-	img := mapgen.Generate(options)
+	img, err := mapgen.Generate(options)
+	if err != nil {
+		fmt.Println(err)
+		os.Exit(1)
+	}
 
 	f, err := os.Create(filename)
+
 	if err != nil {
-		panic(err)
+		fmt.Println(err)
+		os.Exit(1)
 	}
+
 	defer f.Close()
 	png.Encode(f, img)
 }
