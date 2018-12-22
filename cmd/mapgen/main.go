@@ -33,9 +33,9 @@ func init() {
 	pflag.IntVarP(&width, "width", "w", 100, "Width of image")
 	pflag.IntVarP(&height, "height", "h", 100, "Height of image")
 	pflag.IntVarP(&octaves, "octaves", "o", 5, "Number of octaves")
-	pflag.Int64VarP(&seed, "seed", "s", 0, "Seed to generate the map (default random)") //TODO: check if user defined
+	pflag.Int64VarP(&seed, "seed", "s", 0, "Seed to generate the map (default random)")
 	pflag.Float64VarP(&scale, "scale", "x", 20.0, "Scale")
-	pflag.Float64VarP(&persistence, "persistence", "p", 0.5, "persistence")
+	pflag.Float64VarP(&persistence, "persistence", "p", 0.5, "Persistence")
 	pflag.Float64VarP(&lacunarity, "lacunarity", "l", 2.5, "Lacunarity")
 	pflag.BoolVarP(&transition, "color transition", "t", false, "Color Transition in map generation overrites color palette transition")
 	pflag.StringVarP(&colorsFile, "colors filename", "c", "defaultPalette.txt", "File name with the color palette")
