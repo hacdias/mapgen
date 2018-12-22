@@ -24,6 +24,8 @@ var (
 	scale       float64
 	persistence float64
 	lacunarity  float64
+	transition 	bool
+	colorsFile 	string
 	filename    string
 )
 
@@ -35,6 +37,8 @@ func init() {
 	pflag.Float64VarP(&scale, "scale", "x", 20.0, "Scale")
 	pflag.Float64VarP(&persistence, "persistence", "p", 0.5, "persistence")
 	pflag.Float64VarP(&lacunarity, "lacunarity", "l", 2.5, "Lacunarity")
+	pflag.BoolVarP(&transition, "color transition", "t", false, "Color Transition in map generation overrites color palette transition")
+	pflag.StringVarP(&colorsFile, "colors filename", "c", "defaultPalette.txt", "File name with the color palette")
 	pflag.StringVarP(&filename, "filename", "f", "img.png", "File name to output")
 }
 
@@ -65,13 +69,15 @@ func main() {
 	}
 
 	options := &mapgen.Options{
-		Width:       width,
-		Height:      height,
-		Octaves:     octaves,
-		Seed:        seed,
-		Scale:       scale,
-		Persistence: persistence,
-		Lacunarity:  lacunarity,
+		Width:       	width,
+		Height:      	height,
+		Octaves:     	octaves,
+		Seed:        	seed,
+		Scale:       	scale,
+		Persistence: 	persistence,
+		Lacunarity:  	lacunarity,
+		Transition:	 	transition,
+		ColorsFile:		colorsFile,
 	}
 
 	img, err := mapgen.Generate(options)

@@ -4,3 +4,5 @@
 *.tiff
 *.bmp
 *.exe
+*.txt
+!defaultPalette.txt

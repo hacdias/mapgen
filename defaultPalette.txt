@@ -1,0 +1,8 @@
+#0a1778;0.0;true
+#3766c8;0.3;false
+#d0d080;0.4;true
+#589619;0.45;true
+#5c453e;0.60;true
+#4d3b39;0.70;true
+#ffffff;0.80;true
+#ffffff;1;true

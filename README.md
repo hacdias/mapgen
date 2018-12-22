@@ -24,6 +24,8 @@ Documentation about using it as a library can be [found on godoc](http://godoc.o
 
 ```
 Usage of mapgen:
+  -t, --color transition    Color Transition in map generation overrites color palette transition
+  -c, --colors filename string   File name with the color palette (default "defaultPalette.txt")
   -f, --filename string     File name to output (default "img.png")
   -h, --height int          Height of image (default 100)
   -l, --lacunarity float    Lacunarity (default 2.5)
